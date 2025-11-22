@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './authSlice';
-import moviesReducer from './moviesSlice';
+import moviesReducer from './movieSlice';
 import favoritesReducer from './favoritesSlice';
 import themeReducer from './themeSlice';
 

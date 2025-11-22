@@ -3,7 +3,7 @@ import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { TMDB_IMAGE_BASE_URL } from '../constants/api';
 import { COLORS } from '../constants/colors';
-import { toggleFavorite, saveFavorites } from '../redux/favouriteSlice';
+import { toggleFavorite, saveFavorites } from '../redux/favoritesSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { Movie } from '../types';
 
