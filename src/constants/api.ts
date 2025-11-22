@@ -1,5 +1,6 @@
 // TMDB API Configuration
-export const TMDB_API_KEY = '4cbaa5451934c59f77a10909a64e7018'; // Replace with your API key
+import {EXPO_TMDB_API_KEY} from '@env';
+export const TMDB_API_KEY = EXPO_TMDB_API_KEY; // Replace with your API key
 export const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 export const TMDB_IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
 

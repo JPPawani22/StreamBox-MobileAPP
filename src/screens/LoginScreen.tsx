@@ -133,7 +133,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
                   <Text style={{ color: colors.primary }}>Register</Text>
                 </Text>
               </TouchableOpacity>
-
+{/* 
               <View style={styles.demoCredentials}>
                 <Text style={[styles.demoTitle, { color: colors.textSecondary }]}>
                   Demo Credentials:
@@ -144,7 +144,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
                 <Text style={[styles.demoText, { color: colors.textSecondary }]}>
                   Password: emilyspass
                 </Text>
-              </View>
+              </View> */}
             </View>
           )}
         </Formik>

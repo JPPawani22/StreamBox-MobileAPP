@@ -8,16 +8,16 @@ import {
   ActivityIndicator,
   ListRenderItem,
 } from 'react-native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { fetchTrendingMovies, fetchPopularMovies } from '../redux/movieSlice';
 import { loadFavorites } from '../redux/favoritesSlice';
 import MovieCard from '../components/MovieCard';
 import Header from '../components/Header';
 import { COLORS } from '../constants/colors';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { RootStackParamList, Movie } from '../types';
+import { MainTabParamList, Movie } from '../types';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'MainTabs'>;
+type Props = BottomTabScreenProps<MainTabParamList, 'Home'>;
 
 const HomeScreen: React.FC<Props> = ({ navigation }) => {
   const dispatch = useAppDispatch();
@@ -44,7 +44,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
   };
 
   const navigateToDetails = (movie: Movie) => {
-    navigation.navigate('Details', { movieId: movie.id });
+    (navigation.getParent() as any)?.navigate('Details', { movieId: movie.id });
   };
 
   const renderMovieItem: ListRenderItem<Movie> = ({ item }) => (
