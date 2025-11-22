@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DarkTheme as NavDarkTheme, DefaultTheme as NavDefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Feather } from '@expo/vector-icons';
 import { ActivityIndicator, View } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 
 // Screens
 import LoginScreen from '../screens/LoginScreen';
@@ -71,6 +72,8 @@ const MainTabs: React.FC = () => {
 const AppNavigator: React.FC = () => {
   const dispatch = useAppDispatch();
   const { isAuthenticated, user } = useAppSelector((state) => state.auth);
+  const themeMode = useAppSelector((state) => state.theme.mode);
+  const colors = COLORS[themeMode];
   const [isLoading, setIsLoading] = React.useState(true);
 
   useEffect(() => {
@@ -85,14 +88,29 @@ const AppNavigator: React.FC = () => {
 
   if (isLoading) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" color="#E50914" />
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: colors.background }}>
+        <ActivityIndicator size="large" color={colors.primary} />
       </View>
     );
   }
 
+  // Build a navigation theme that uses your COLORS mapping
+  const navTheme = {
+    ...(themeMode === 'dark' ? NavDarkTheme : NavDefaultTheme),
+    colors: {
+      ...(themeMode === 'dark' ? NavDarkTheme.colors : NavDefaultTheme.colors),
+      background: colors.background,
+      card: colors.card,
+      text: colors.text,
+      border: colors.border,
+      primary: colors.primary,
+    },
+  };
+
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={navTheme}>
+      {/* StatusBar adapts to the selected theme */}
+      <StatusBar style={themeMode === 'dark' ? 'light' : 'dark'} backgroundColor={colors.card} />
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {!isAuthenticated || !user ? (
           <>
