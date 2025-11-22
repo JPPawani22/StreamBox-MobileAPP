@@ -30,6 +30,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
   useEffect(() => {
     loadMovies();
     dispatch(loadFavorites());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadMovies = () => {
@@ -48,13 +49,13 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
   };
 
   const renderMovieItem: ListRenderItem<Movie> = ({ item }) => (
-    <MovieCard movie={item} onPress={() => navigateToDetails(item)} />
+    <MovieCard movie={item} onPress={() => navigateToDetails(item)} colors={colors} />
   );
 
   if (loading && !refreshing && trending.length === 0) {
     return (
       <View style={[styles.container, { backgroundColor: colors.background }]}>
-        <Header title="StreamBox" showLogout={true} />
+        <Header title="StreamBox" showLogout={true} colors={colors} />
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color={colors.primary} />
           <Text style={[styles.loadingText, { color: colors.text }]}>
@@ -67,7 +68,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <Header title="StreamBox" showLogout={true} />
+      <Header title="StreamBox" showLogout={true} colors={colors} />
 
       <FlatList
         data={[{ key: 'content' }]}
@@ -109,6 +110,8 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
             refreshing={refreshing}
             onRefresh={onRefresh}
             tintColor={colors.primary}
+            colors={[colors.primary]} // Android spinner color
+            progressBackgroundColor={colors.card}
           />
         }
       />

@@ -33,14 +33,14 @@ const FavoritesScreen: React.FC<Props> = ({ navigation }) => {
 
   const renderMovieItem: ListRenderItem<Movie> = ({ item }) => (
     <View style={styles.cardWrapper}>
-      <MovieCard movie={item} onPress={() => navigateToDetails(item)} />
+      <MovieCard movie={item} onPress={() => navigateToDetails(item)} colors={colors} />
     </View>
   );
 
   if (favorites.length === 0) {
     return (
       <View style={[styles.container, { backgroundColor: colors.background }]}>
-        <Header title="Favorites" />
+        <Header title="Favorites" colors={colors} />
         <View style={styles.emptyContainer}>
           <Feather name="heart" size={64} color={colors.textSecondary} />
           <Text style={[styles.emptyText, { color: colors.text }]}>No favorites yet</Text>
@@ -51,7 +51,7 @@ const FavoritesScreen: React.FC<Props> = ({ navigation }) => {
             style={[styles.button, { backgroundColor: colors.primary }]}
             onPress={() => navigation.navigate('Home')}
           >
-            <Text style={styles.buttonText}>Browse Movies</Text>
+            <Text style={[styles.buttonText, { color: '#fff' }]}>Browse Movies</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -60,7 +60,7 @@ const FavoritesScreen: React.FC<Props> = ({ navigation }) => {
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <Header title="Favorites" />
+      <Header title="Favorites" colors={colors} />
       <FlatList
         data={favorites}
         renderItem={renderMovieItem}

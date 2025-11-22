@@ -70,7 +70,7 @@ const DetailsScreen: React.FC<Props> = ({ route, navigation }) => {
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <View style={[styles.header, { backgroundColor: colors.background }]}>
+      <View style={[styles.header, { backgroundColor: 'transparent' }]}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Feather name="arrow-left" size={24} color={colors.text} />
         </TouchableOpacity>
@@ -79,7 +79,7 @@ const DetailsScreen: React.FC<Props> = ({ route, navigation }) => {
             name="heart"
             size={24}
             color={isFavorite ? colors.primary : colors.text}
-            fill={isFavorite ? colors.primary : 'transparent'}
+            // fill prop may not work for all icons; color handles it
           />
         </TouchableOpacity>
       </View>
@@ -89,7 +89,13 @@ const DetailsScreen: React.FC<Props> = ({ route, navigation }) => {
 
         <View style={styles.content}>
           <View style={styles.posterContainer}>
-            <Image source={{ uri: imageUri }} style={styles.poster} />
+            <Image
+              source={{ uri: imageUri }}
+              style={[
+                styles.poster,
+                { borderColor: colors.border, backgroundColor: colors.card },
+              ]}
+            />
           </View>
 
           <Text style={[styles.title, { color: colors.text }]}>{selectedMovie.title}</Text>
@@ -223,6 +229,7 @@ const styles = StyleSheet.create({
     width: 150,
     height: 225,
     borderRadius: 12,
+    borderWidth: 1,
     elevation: 5,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { TMDB_IMAGE_BASE_URL } from '../constants/api';
-import { COLORS } from '../constants/colors';
+import { ColorScheme, COLORS } from '../constants/colors';
 import { toggleFavorite, saveFavorites } from '../redux/favoritesSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { Movie } from '../types';
@@ -10,13 +10,15 @@ import { Movie } from '../types';
 interface MovieCardProps {
   movie: Movie;
   onPress: () => void;
+  colors?: ColorScheme; // optional theme override
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({ movie, onPress }) => {
+const MovieCard: React.FC<MovieCardProps> = ({ movie, onPress, colors: propColors }) => {
   const dispatch = useAppDispatch();
   const themeMode = useAppSelector((state) => state.theme.mode);
   const favorites = useAppSelector((state) => state.favorites.items);
-  const colors = COLORS[themeMode];
+  // use passed colors if provided, otherwise derive from theme
+  const colors = propColors ?? COLORS[themeMode];
 
   const isFavorite = favorites.some((fav) => fav.id === movie.id);
 
@@ -41,14 +43,16 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, onPress }) => {
       <Image source={{ uri: imageUri }} style={styles.image} />
 
       <TouchableOpacity
-        style={[styles.favoriteButton, { backgroundColor: colors.background }]}
+        style={[
+          styles.favoriteButton,
+          { backgroundColor: colors.background, borderColor: colors.border, borderWidth: 0.5 },
+        ]}
         onPress={handleToggleFavorite}
       >
         <Feather
           name="heart"
           size={20}
           color={isFavorite ? colors.primary : colors.textSecondary}
-          fill={isFavorite ? colors.primary : 'transparent'}
         />
       </TouchableOpacity>
 

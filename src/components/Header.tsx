@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import { COLORS } from '../constants/colors';
+import { ColorScheme, COLORS } from '../constants/colors';
 import { toggleTheme, saveTheme } from '../redux/themeSlice';
 import { logoutUser } from '../redux/authSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
@@ -9,13 +9,15 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
 interface HeaderProps {
   title: string;
   showLogout?: boolean;
+  colors?: ColorScheme; // optional theme override
 }
 
-const Header: React.FC<HeaderProps> = ({ title, showLogout = false }) => {
+const Header: React.FC<HeaderProps> = ({ title, showLogout = false, colors: propColors }) => {
   const dispatch = useAppDispatch();
   const themeMode = useAppSelector((state) => state.theme.mode);
   const user = useAppSelector((state) => state.auth.user);
-  const colors = COLORS[themeMode];
+  // use passed colors if provided; otherwise use theme
+  const colors = propColors ?? COLORS[themeMode];
 
   const handleToggleTheme = () => {
     const newTheme = themeMode === 'light' ? 'dark' : 'light';
@@ -31,7 +33,8 @@ const Header: React.FC<HeaderProps> = ({ title, showLogout = false }) => {
     <View
       style={[
         styles.container,
-        { backgroundColor: colors.background, borderBottomColor: colors.border },
+        // use card background so top looks whiter in light mode
+        { backgroundColor: colors.card, borderBottomColor: colors.border },
       ]}
     >
       <View style={styles.content}>
