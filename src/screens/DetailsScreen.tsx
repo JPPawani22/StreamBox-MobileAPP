@@ -79,7 +79,6 @@ const DetailsScreen: React.FC<Props> = ({ route, navigation }) => {
             name="heart"
             size={24}
             color={isFavorite ? colors.primary : colors.text}
-            // fill prop may not work for all icons; color handles it
           />
         </TouchableOpacity>
       </View>

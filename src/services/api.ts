@@ -69,7 +69,6 @@ export const movieService = {
 };
 
 // --- Authentication Services -----------------------------------------------
-// Goal: keep screens and thunks unchanged by returning a normalized User object
 // where token is always present (mapped from accessToken when necessary).
 export const authService = {
   login: async (credentials: LoginCredentials): Promise<User> => {
@@ -106,11 +105,11 @@ export const authService = {
       } as User;
 
       // eslint-disable-next-line no-console
-      console.log('[authService] login response (normalized):', normalized);
+      //console.log('[authService] login response (normalized):', normalized);
       return normalized;
     } catch (err: any) {
       // eslint-disable-next-line no-console
-      console.error('[authService] login error:', err?.response?.data ?? err.message ?? err);
+      //console.error('[authService] login error:', err?.response?.data ?? err.message ?? err);
       throw err;
     }
   },
@@ -144,11 +143,11 @@ export const authService = {
       } as User;
 
       // eslint-disable-next-line no-console
-      console.log('[authService] register response (normalized):', userWithToken);
+      //console.log('[authService] register response (normalized):', userWithToken);
       return userWithToken;
     } catch (err: any) {
       // eslint-disable-next-line no-console
-      console.warn('[authService] register failed on remote, falling back to mock user:', err?.response?.data ?? err.message ?? err);
+      //console.warn('[authService] register failed on remote, falling back to mock user:', err?.response?.data ?? err.message ?? err);
       const mockUser: User = {
         id: Date.now(),
         username: credentials.username,

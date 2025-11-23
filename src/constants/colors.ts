@@ -18,7 +18,7 @@ export interface Colors {
 export const COLORS: Colors = {
   light: {
     primary: '#E50914',
-    secondary: '#d4d4d4',
+    secondary: '#831010',
     background: '#F2F4F8',
     card: '#FFFFFF',
     text: '#0B0B0B',

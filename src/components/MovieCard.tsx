@@ -10,14 +10,13 @@ import { Movie } from '../types';
 interface MovieCardProps {
   movie: Movie;
   onPress: () => void;
-  colors?: ColorScheme; // optional theme override
+  colors?: ColorScheme; 
 }
 
 const MovieCard: React.FC<MovieCardProps> = ({ movie, onPress, colors: propColors }) => {
   const dispatch = useAppDispatch();
   const themeMode = useAppSelector((state) => state.theme.mode);
   const favorites = useAppSelector((state) => state.favorites.items);
-  // use passed colors if provided, otherwise derive from theme
   const colors = propColors ?? COLORS[themeMode];
 
   const isFavorite = favorites.some((fav) => fav.id === movie.id);

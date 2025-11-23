@@ -49,9 +49,7 @@ const themeSlice = createSlice({
   name: 'theme',
   initialState,
   reducers: {
-    // keep a simple synchronous toggle action if you need it for tests or reducers,
-    // but prefer toggleAndSave() in UI so the choice is persisted.
-    toggleTheme: (state) => {
+      toggleTheme: (state) => {
       state.mode = state.mode === 'light' ? 'dark' : 'light';
     },
     setTheme: (state, action: PayloadAction<'light' | 'dark'>) => {

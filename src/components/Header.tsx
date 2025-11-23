@@ -9,14 +9,13 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
 interface HeaderProps {
   title: string;
   showLogout?: boolean;
-  colors?: ColorScheme; // optional theme override
+  colors?: ColorScheme; 
 }
 
 const Header: React.FC<HeaderProps> = ({ title, showLogout = false, colors: propColors }) => {
   const dispatch = useAppDispatch();
   const themeMode = useAppSelector((state) => state.theme.mode);
   const user = useAppSelector((state) => state.auth.user);
-  // use passed colors if provided; otherwise use theme
   const colors = propColors ?? COLORS[themeMode];
 
   const handleToggleTheme = () => {
@@ -33,7 +32,6 @@ const Header: React.FC<HeaderProps> = ({ title, showLogout = false, colors: prop
     <View
       style={[
         styles.container,
-        // use card background so top looks whiter in light mode
         { backgroundColor: colors.card, borderBottomColor: colors.border },
       ]}
     >

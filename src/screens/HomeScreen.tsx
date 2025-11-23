@@ -30,7 +30,6 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
   useEffect(() => {
     loadMovies();
     dispatch(loadFavorites());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadMovies = () => {
